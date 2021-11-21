@@ -12,8 +12,9 @@ class Actor extends Phaser.Physics.Arcade.Sprite {
         this
             .setOrigin(0, 1)
             .setName("Actor")
-            .setCollideWorldBounds(true);
-        
+            .setCollideWorldBounds(true)
+            .setDataEnabled();
+            
         // Define state manager for Actor
         this.manager = new Manager(scene);
     }

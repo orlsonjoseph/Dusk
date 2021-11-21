@@ -4,10 +4,12 @@ class JumpState extends State {
     constructor(scene, actor) {
         super(scene, actor);
 
+        this.jumpHeight = -1 * this.actor.data.get("jumpHeight");
     }
 
     enter() {
-        this.actor.setVelocityY(-125);
+
+        this.actor.setVelocityY(this.jumpHeight);
     }
 
     update() {

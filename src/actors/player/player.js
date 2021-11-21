@@ -1,18 +1,36 @@
 import Actor from "../actor";
 import IdleState from "./states/idle";
 import JumpState from "./states/jump";
+import MoveState from "./states/move";
 
 let STATES = {
     idle: IdleState,
-    jump: JumpState
+    jump: JumpState,
+    move: MoveState
+}
+
+let ATTRIBUTES = {
+    speed   : 50.0,
+    gravity : 250,
+
+    jumpHeight  : 140,
 }
 
 class Player extends Actor {
     constructor(scene, x, y, sprite = "player") {
         super(scene, x, y, sprite);
-
-        this.setScale(1);
         
+        // Define character attributes
+        for(var attribute in ATTRIBUTES) {
+
+            this.data.set(attribute, ATTRIBUTES[attribute])
+        }
+
+        // Actor object specifications
+        this
+            .setScale(1)
+            .setGravityY(this.data.get("gravity"));
+
         // Initialize player states
         for(var state in STATES) {
             this.manager &&
