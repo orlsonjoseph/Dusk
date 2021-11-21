@@ -1,39 +1,57 @@
 import Phaser from 'phaser';
-import logoImg from './assets/logo.png';
 
-class MyGame extends Phaser.Scene
-{
-    constructor ()
-    {
-        super();
-    }
+import Preload from "./scenes/preload.js";
+import Game from "./scenes/game.js";
 
-    preload ()
-    {
-        this.load.image('logo', logoImg);
-    }
-      
-    create ()
-    {
-        const logo = this.add.image(400, 150, 'logo');
-      
-        this.tweens.add({
-            targets: logo,
-            y: 450,
-            duration: 2000,
-            ease: "Power2",
-            yoyo: true,
-            loop: -1
+class Dusk extends Phaser.Game {
+    constructor () {
+        super({
+            renderType: Phaser.CANVAS,
+
+            width: 320,
+            height: 180,
+            
+            backgroundColor: 0xfff,
+
+            scale: {
+                mode: Phaser.Scale.FIT,
+                autoCenter: Phaser.Scale.CENTER_BOTH
+            },
+
+            antialias: false,
+            autoFocus: true,
+            autoRound: true,
+            disableContextMenu: true,
+            expandParent: true,
+
+            fps: {
+                min: 30,
+                target: 60,
+                forceSetTimeOut: true,
+                smoothStep: true,
+            },
+
+            gameTitle: "Dusk",
+
+            inputMouse: false,
+            pixelArt: true,
+
+            physics: {
+                default: "arcade",
+                arcade: {
+                    gravity: {
+                      y: 100
+                    },
+                    debug: true
+                }
+            },
         });
+
+    this.scene.add("Preload", Preload, false);
+    this.scene.add("Game", Game, false);
+
+    this.scene.start("Preload");
     }
 }
-
-const config = {
-    type: Phaser.AUTO,
-    parent: 'phaser-example',
-    width: 800,
-    height: 600,
-    scene: MyGame
-};
-
-const game = new Phaser.Game(config);
+      
+new Dusk();
