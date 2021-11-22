@@ -16,9 +16,8 @@ class IdleState extends State {
         // Change to MoveState if arrow keys are pressed
         // Args is direction of movement: true -> right; false -> left
         if (input.left.isDown || input.right.isDown) {
-            let direction = input.right.isDown ? true : false;
 
-            this.fsm.change("move", false, direction);
+            this.fsm.change("move", false);
         }   
     }
 

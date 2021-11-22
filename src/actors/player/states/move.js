@@ -13,14 +13,12 @@ class MoveState extends State {
         super(scene, actor);
 
         this.speed = this.actor.data.get("speed");
+        
+        this.invert = false;
+        this.direction = true;
     }
 
-    enter(direction, invert = false) {
-        this.actor.play("move");
-        // direction    : direction of motion
-        // invert       : character orientation align with direction?
-        MoveState.moveHorizontally(direction, invert, this.speed, this.actor);
-    }
+    enter() { this.actor.play("move") }
 
     exit() { this.actor.stop("move") }
 
@@ -30,6 +28,16 @@ class MoveState extends State {
         if (input.left.isUp && input.right.isUp)
             this.fsm.change("previous", true);
 
+        else {
+            // Update direction variable
+            this.direction = input.right.isDown ? true : false;
+        }
+    }
+
+    update(time, delta) {
+        // Update function for movement
+        MoveState.moveHorizontally(
+            this.direction, this.invert, this.speed, this.actor);
     }
 }
 
