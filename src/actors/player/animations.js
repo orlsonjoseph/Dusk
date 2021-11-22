@@ -9,7 +9,7 @@ export var animations = {
     "move": {
         start: 8, end: 13,
 
-        duration: 720, delay: null, repeat: -1,
+        duration: 600, delay: null, repeat: -1,
     },
 
     "jump": {

@@ -15,10 +15,10 @@ let STATES = {
 }
 
 let ATTRIBUTES = {
-    speed   : 50.0,
-    gravity : 350,
+    speed   : 70.0,
+    gravity : 330,
 
-    jumpHeight  : 45,
+    jumpHeight  : 55,
 }
 
 class Player extends Actor {

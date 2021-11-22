@@ -27,8 +27,9 @@ class MoveState extends State {
         // unless movement keys are held
         if (input.left.isUp && input.right.isUp)
             this.fsm.change("previous", true);
-
-        else {
+        else if (input.jump.isDown) {
+            this.fsm.change("jump", true);
+        } else {
             // Update direction variable
             this.direction = input.right.isDown ? true : false;
         }
