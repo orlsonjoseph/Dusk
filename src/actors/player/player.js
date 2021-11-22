@@ -1,7 +1,12 @@
 import Actor from "../actor";
+
 import IdleState from "./states/idle";
 import JumpState from "./states/jump";
 import MoveState from "./states/move";
+
+import { animations } from "./animations";
+
+import { Dusk } from "../../utilities/fxs";
 
 let STATES = {
     idle: IdleState,
@@ -11,9 +16,9 @@ let STATES = {
 
 let ATTRIBUTES = {
     speed   : 50.0,
-    gravity : 250,
+    gravity : 350,
 
-    jumpHeight  : 140,
+    jumpHeight  : 45,
 }
 
 class Player extends Actor {
@@ -29,7 +34,17 @@ class Player extends Actor {
         // Actor object specifications
         this
             .setScale(1)
+            .setOffset(20, 8)
+            .setBodySize(11, 26, false)
             .setGravityY(this.data.get("gravity"));
+
+        // Manage animations
+		for (var key in animations) {
+			if (animations.hasOwnProperty(key)) {
+                Dusk.createAnimationFromJSON(
+                    this.scene, this, key, animations[key]);
+			}
+		}
 
         // Initialize player states
         for(var state in STATES) {
