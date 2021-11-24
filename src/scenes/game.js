@@ -8,7 +8,10 @@ class Game extends Phaser.Scene {
 	constructor() {
 		super({key: "Game"});
 
-		this.here = null;
+		this.settings = {
+			tileset: {
+				name: "dev-tileset", asset: "tiles" },
+		}
 
 		// for debugging purposes, clear localStorage
 		localStorage.clear();
@@ -17,7 +20,9 @@ class Game extends Phaser.Scene {
 	create() {
 		[this.map, this.tiles] =
 			Dusk.loadTilemap(this, "map", {
-				name: "dev-tileset", image: "tiles"});
+				name: this.settings.tileset.name,
+				image: this.settings.tileset.asset
+			});
 		
 		// Layers from Tiled 
 		this.positions = Dusk.readPositions(this.map, "Positions");

@@ -20,6 +20,13 @@ export var Dusk = {
     createPlatformLayer: function (map, tiles) {
         let layer = Dusk.createSpecifiedLayer(map, tiles, "Platforms");
 
+        // Edit collision settings for platforms from sides
+        // to only top side
+        layer.forEachTile(
+            function (tile) { tile.canCollide 
+                && tile.setCollision(false, false, true, false)
+            });
+
         return layer;
     },
 
