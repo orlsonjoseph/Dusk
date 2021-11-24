@@ -36,9 +36,13 @@ class MoveState extends State {
     }
 
     update(time, delta) {
-        // Update function for movement
-        MoveState.moveHorizontally(
-            this.direction, this.invert, this.speed, this.actor);
+        if (!this.actor.body.onFloor()) this.fsm.change("jump", true);
+
+        // Update function for movement if not falling
+        else {
+            MoveState.moveHorizontally(
+                this.direction, this.invert, this.speed, this.actor);
+        }
     }
 }
 

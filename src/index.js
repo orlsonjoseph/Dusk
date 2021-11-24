@@ -11,7 +11,7 @@ class Dusk extends Phaser.Game {
             width: 320,
             height: 180,
             
-            backgroundColor: 0xfff,
+            backgroundColor: 0xf1a933,
 
             scale: {
                 mode: Phaser.Scale.FIT,

@@ -14,10 +14,10 @@ class Preload extends Phaser.Scene {
             });
             
         // load tilesets
-        this.load.image("tiles", "tilesets/sheet.png");
+        this.load.image("tiles", "tilesets/dev-block.png");
 
         // load exported Tiles JSON
-        this.load.tilemapTiledJSON("map", "tilemaps/level1.json");
+        this.load.tilemapTiledJSON("map", "tilemaps/level_test.json");
 	}
 
 	create() {

@@ -9,11 +9,29 @@ export var Dusk = {
         return [map, tiles];
     },
 
-    // Extract and create platform layer from map
-    createPlatformLayer: function (map, tiles, key="platforms",) {
+    // Extract and create specified layer from map
+    createSpecifiedLayer: function (map, tiles, key) {
         return map
                 .createLayer(key, tiles)
                 .setCollisionByExclusion(-1, true);
+    },
+
+    // Extract and create platform layer from map
+    createPlatformLayer: function (map, tiles) {
+        let layer = Dusk.createSpecifiedLayer(map, tiles, "Platforms");
+
+        return layer;
+    },
+
+    //
+    readPositions: function (map, key) {
+        let layer = map.getObjectLayer(key), lib = {};
+
+        layer.objects.forEach((item, i) => {
+            lib[item.name] = item;
+        });
+
+        return lib;
     },
 
     // Create animation

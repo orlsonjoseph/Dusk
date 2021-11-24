@@ -19,7 +19,8 @@ class JumpState extends State {
     enter() {
         this.jump.timer = 1;
 
-        this.actor.setVelocityY(this.jump.height);
+        if (this.actor.body.onFloor())
+            this.actor.setVelocityY(this.jump.height);
     }
 
     exit() { this.jump.timer = 0; this.actor.stop("fall"); }

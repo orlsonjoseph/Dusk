@@ -17,18 +17,27 @@ class Game extends Phaser.Scene {
 	create() {
 		[this.map, this.tiles] =
 			Dusk.loadTilemap(this, "map", {
-				name: "development_tiled_assets", image: "tiles"});
+				name: "dev-tileset", image: "tiles"});
 		
+		// Layers from Tiled 
+		this.positions = Dusk.readPositions(this.map, "Positions");
+
 		this.platforms = Dusk.createPlatformLayer(this.map, this.tiles);
+		this.ground =  Dusk.createSpecifiedLayer(this.map, this.tiles, "Ground");
 
 		// Setting world & camera bounds
 		[this.physics.world, this.cameras.main].forEach((item, i) => {
-
 			item.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
 		});
 
-		this.player = new Player(this, 50, 50);
-		this.physics.add.collider(this.player, this.platforms);
+		// TODO fall animation not playing
+		//		layer reading refactoring
+		//		platform fall through
+
+		this.player = new Player(
+			this, this.positions.player.x, this.positions.player.y);
+
+		this.physics.add.collider(this.player, [this.ground, this.platforms]);
 
 		// Define cursors aka game keys
 		this.cursors = new Cursor(this);

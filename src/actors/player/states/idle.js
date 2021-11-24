@@ -24,6 +24,9 @@ class IdleState extends State {
     update(time, delta) {
         // No animation currently playing; queue idle
         if (!this.actor.anims.isPlaying) this.actor.play("idle");
+
+        // If not on platform; fall
+        if (!this.actor.body.onFloor()) this.fsm.change("jump", false);
     }
 }
 
