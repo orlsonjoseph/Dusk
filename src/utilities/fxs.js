@@ -24,13 +24,14 @@ export var Dusk = {
         // to only top side
         layer.forEachTile(
             function (tile) { tile.canCollide 
+                // left - right - up - down
                 && tile.setCollision(false, false, true, false)
             });
 
         return layer;
     },
 
-    //
+    // TODO
     readPositions: function (map, key) {
         let layer = map.getObjectLayer(key), lib = {};
 

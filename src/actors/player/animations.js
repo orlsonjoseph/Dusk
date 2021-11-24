@@ -22,5 +22,23 @@ export var animations = {
         start: 22, end: 23,
 
         duration: 240, delay: null, repeat: -1,
-    }
+    },
+
+    "attack-1": {
+        start: 42, end: 46,
+
+        duration: 360, delay: null, repeat: 0,
+    },
+
+    "attack-2": {
+        start: 47, end: 52,
+
+        duration: 360, delay: null, repeat: 0,
+    },
+
+    "attack-3": {
+        start: 53, end: 58,
+
+        duration: 360, delay: null, repeat: 0,
+    },
 }

@@ -6,6 +6,8 @@ class Cursor {
             right   : "right",
 
             jump    : "space",
+
+            attack  : "q",
         })
     }
 }

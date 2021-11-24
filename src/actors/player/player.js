@@ -3,6 +3,7 @@ import Actor from "../actor";
 import IdleState from "./states/idle";
 import JumpState from "./states/jump";
 import MoveState from "./states/move";
+import AttackState from "./states/attack";
 
 import { animations } from "./animations";
 
@@ -11,7 +12,9 @@ import { Dusk } from "../../utilities/fxs";
 let STATES = {
     idle: IdleState,
     jump: JumpState,
-    move: MoveState
+    move: MoveState,
+
+    attack: AttackState,
 }
 
 let ATTRIBUTES = {
@@ -30,6 +33,8 @@ class Player extends Actor {
 
             this.data.set(attribute, ATTRIBUTES[attribute])
         }
+
+        this.data.set("combatAnimation", {time: null, image: 0});
 
         // Actor object specifications
         this

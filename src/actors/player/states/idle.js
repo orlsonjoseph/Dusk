@@ -18,7 +18,10 @@ class IdleState extends State {
         if (input.left.isDown || input.right.isDown) {
 
             this.fsm.change("move", false);
-        }   
+        }
+
+        // Change to AttackState
+        if (input.attack.isDown) this.fsm.change("attack", false);
     }
 
     update(time, delta) {

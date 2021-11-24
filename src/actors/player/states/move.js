@@ -20,9 +20,18 @@ class MoveState extends State {
 
     enter() { this.actor.play("move") }
 
-    exit() { this.actor.stop("move") }
+    exit() { 
+        // Stop horizontal motion
+        this.actor.setVelocityX(0);
+
+        // Stop animation
+        this.actor.stop("move") 
+    }
 
     handle(input) {
+        // Combat trumps other states
+        input.attack.isDown && this.fsm.change("attack", true);
+
         // Movement only persists for a frame
         // unless movement keys are held
         if (input.left.isUp && input.right.isUp)

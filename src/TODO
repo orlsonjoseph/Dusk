@@ -1,0 +1,3 @@
+  - Maintain player orientation towards nearest enemy if moving between
+    attacks
+  - Air attacks
