@@ -5,9 +5,6 @@ class Cursor {
             left    : "left",
             right   : "right",
 
-            up      : "up",
-            down    : "down",
-
             jump    : "space",
 
             attack  : "q",
