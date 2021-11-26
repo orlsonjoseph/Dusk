@@ -1,6 +1,6 @@
-import { NONE } from "phaser";
 import State from "../../../utilities/state";
 import MoveState from "./move";
+import AttackState from "./attack";
 
 class JumpState extends State {
     constructor(scene, actor) {
@@ -45,6 +45,17 @@ class JumpState extends State {
             MoveState.moveHorizontally(
                 direction, false, this.actor.data.get("speed"), this.actor);
         }
+
+        // Air attacks
+        if (input.attack.isDown && !this.actor.body.onFloor()) {
+            // Only execute air attack if not executing one currently
+            let current = this.actor.anims.getName(),
+                playing = this.actor.anims.isPlaying;
+
+            if (current.includes("attack") && playing) {;} else {
+                AttackState.airAttack(input, this.actor);
+            }
+        }
     }
 
     update(time, delta) {
@@ -57,9 +68,13 @@ class JumpState extends State {
             let animationKey = 
                 this.actor.body.velocity.y > 0 ? "fall" : "jump",
                 currentAnimation = this.actor.anims.getName();
+            
+            // If currentAnimation is an attack
+            // Skip
+            if (currentAnimation.includes("attack") && this.actor.anims.isPlaying) return;
 
-            if (currentAnimation != animationKey || currentAnimation == NONE)
-                this.actor.play(animationKey);
+            // Swap between fall & jump
+            if (currentAnimation != animationKey) this.actor.play(animationKey);     
         }
     }
 }

@@ -41,4 +41,22 @@ export var animations = {
 
         duration: 360, delay: null, repeat: 0,
     },
+
+    "air-attack-down": {
+        start: 106, end: 108,
+
+        duration: 360, delay: null, repeat: 0,
+    },
+
+    "air-attack-up": {
+        start: 100, end: 102,
+
+        duration: 360, delay: null, repeat: 0,
+    },
+
+    "air-attack-horizontal": {
+        start: 96, end: 99,
+
+        duration: 360, delay: null, repeat: 0,
+    },
 }
