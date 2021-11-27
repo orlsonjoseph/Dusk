@@ -30,7 +30,7 @@ class MoveState extends State {
 
     handle(input) {
         // Combat trumps other states
-        input.attack.isDown && this.fsm.change("attack", true);
+        input.attack.isDown && this.fsm.change("attack", false);
 
         // Movement only persists for a frame
         // unless movement keys are held
@@ -49,6 +49,10 @@ class MoveState extends State {
 
         // Update function for movement if not falling
         else {
+            // If no animation in play
+            // Move animation
+            !this.actor.anims.isPlaying && this.actor.play("move");
+
             MoveState.moveHorizontally(
                 this.direction, this.invert, this.speed, this.actor);
         }

@@ -50,6 +50,8 @@ class Manager {
     
     // Propagates update to current state + inputs
     update(time, delta, input) {
+        if (this.current == null) this.initialize();
+
         this.current.update(time, delta);
 
         this.current.handle(input);

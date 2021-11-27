@@ -8,6 +8,7 @@ import AttackState from "./states/attack";
 import { animations } from "./animations";
 
 import { Dusk } from "../../utilities/fxs";
+import Hitbox from "../../utilities/hitbox";
 
 let STATES = {
     idle: IdleState,
@@ -22,6 +23,10 @@ let ATTRIBUTES = {
     gravity : 330,
 
     jumpHeight  : 55,
+
+    combatAnimation : {
+        image: 0, time: null,
+    },
 }
 
 class Player extends Actor {
@@ -33,8 +38,6 @@ class Player extends Actor {
 
             this.data.set(attribute, ATTRIBUTES[attribute])
         }
-
-        this.data.set("combatAnimation", {time: null, image: 0});
 
         // Actor object specifications
         this
@@ -57,6 +60,11 @@ class Player extends Actor {
                 this.manager.add(state, new (STATES[state])(scene, this))
         }
 
+        // Define player character weapon
+        var width = this.body.width * 3.25, height = this.body.height * 1.25;
+
+        this.weapon = new Hitbox(scene, x, y, width, height);
+        this.weapon.body.enable = false; // Disable weapon 
         this.manager.initialize();
     }
 

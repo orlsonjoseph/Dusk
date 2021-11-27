@@ -45,6 +45,9 @@ class JumpState extends State {
             MoveState.moveHorizontally(
                 direction, false, this.actor.data.get("speed"), this.actor);
         }
+
+        // Air attack
+        if (input.attack.isDown) this.fsm.change("attack", false);
     }
 
     update(time, delta) {
