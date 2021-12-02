@@ -10,11 +10,7 @@ let STATES = {
     move: MoveState,
 }
 
-let ATTRIBUTES = {
-    speed   : 70.0,
-
-    jumpHeight  : 55,
-}
+let ATTRIBUTES = {speed: 60.0, vertical: 25, gravity: 410}
 
 class Player extends Actor {
     constructor(scene, x, y, sprite = "player") {
@@ -29,8 +25,9 @@ class Player extends Actor {
         // Actor object specifications
         this
             .setScale(1)
-            .setBodySize(8, 16);
-            
+            .setBodySize(8, 16)
+            .setGravityY(this.data.get("gravity"));
+
         // Initialize player states
         for(var state in STATES) {
             this.manager &&

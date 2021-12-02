@@ -7,13 +7,8 @@ class JumpState extends State {
         super(scene, actor);
 
         this.jump = {
-            timer   : 0,
-            start   : null,
-            height  : -1 * this.actor.data.get("jumpHeight"),
-
-            upperbound  : 20,
-            multiplier  : 4
-        }
+            timer: 0, start: null, upperbound: 18, multiplier: 6.45,
+            height: -1 * this.actor.data.get("vertical")}
     }
 
     enter() {
@@ -23,12 +18,12 @@ class JumpState extends State {
             this.actor.setVelocityY(this.jump.height);
     }
 
-    exit() { this.jump.timer = 0; }
+    exit() { this.jump.timer = 0 }
 
     handle(input) {
         this.jump.timer += 1;
 
-        if (input.jump.isDown) {
+        if (input.jump.isDown && this.jump.timer > 0) {
             if (this.jump.timer < this.jump.upperbound) {
                 let velocity = this.jump.height - 
                     (this.jump.timer * this.jump.multiplier);
@@ -49,8 +44,7 @@ class JumpState extends State {
 
     update(time, delta) {
         if (this.actor.body.onFloor())
-            this.fsm.change("previous", true);
-            
+            this.fsm.change("previous", true);       
     }
 }
 

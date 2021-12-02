@@ -52,9 +52,10 @@ class Manager {
     update(time, delta, input) {
         if (this.current == null) this.initialize();
 
-        this.current.update(time, delta);
-
+        console.log("Current State: ", this.current.name);
         this.current.handle(input);
+
+        this.current.update(time, delta);
     }
 }
   

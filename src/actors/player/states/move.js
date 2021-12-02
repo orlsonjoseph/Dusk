@@ -20,28 +20,27 @@ class MoveState extends State {
 
     exit() { 
         // Stop horizontal motion
-        this.actor.setVelocityX(0);
+        this.actor.setVelocity(0);
     }
 
     handle(input) {
         // Movement only persists for a frame
         // unless movement keys are held
+
         if (input.left.isUp && input.right.isUp)
             this.fsm.change("previous", true);
 
-        else if (input.jump.isDown) {
-            this.fsm.change("jump", true);
-        } else {
-            // Update direction variable
-            this.direction = input.right.isDown ? true : false;
-        }
+        if (input.jump.isDown) this.fsm.change("jump", true);
+        
+        // Update direction variable
+        this.direction = input.right.isDown ? true : false;
     }
 
     update(time, delta) {
-        if (!this.actor.body.onFloor()) this.fsm.change("jump", true);
-       
-        MoveState.moveHorizontally(
-            this.direction, this.invert, this.speed, this.actor);
+        let grounded = this.actor.body.onFloor();
+
+        if (!grounded) this.fsm.change("jump", true);
+        MoveState.moveHorizontally(this.direction, this.invert, this.speed, this.actor);
     }
 }
 

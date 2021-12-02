@@ -7,7 +7,7 @@ class IdleState extends State {
     }
     
     handle(input) {
-        // Reset velocity on X-axis upon exiting
+        // Reset velocity on X-axis upon entering
         this.actor.setVelocityX(0);
 
         // Change to JumpState if jump is pressed
@@ -19,8 +19,10 @@ class IdleState extends State {
     }
 
     update(time, delta) {
+        let grounded = this.actor.body.onFloor();
+        
         // If not on platform; fall
-        if (!this.actor.body.onFloor()) this.fsm.change("jump", false);
+        if (!grounded) this.fsm.change("jump", false);
     }
 }
 
