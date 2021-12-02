@@ -53,16 +53,4 @@ export var Dusk = {
         
         actor.anims.create(options);
     },
-
-    // Position object relative to source taking offset into account
-    positionRelativeTo(object, source, offset) {
-        if (object == null || source == null) return;
-        object.copyPosition(source);
-
-        if (offset) { 
-            object.x += offset.horizontal;
-            
-            object.y += offset.vertical 
-        }
-    }
 }

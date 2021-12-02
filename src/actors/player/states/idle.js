@@ -14,20 +14,11 @@ class IdleState extends State {
         if (input.jump.isDown) this.fsm.change("jump", false);
 
         // Change to MoveState if arrow keys are pressed
-        // Args is direction of movement: true -> right; false -> left
-        if (input.left.isDown || input.right.isDown) {
-
+        if (input.left.isDown || input.right.isDown)
             this.fsm.change("move", false);
-        }
-
-        // Change to AttackState
-        if (input.attack.isDown) this.fsm.change("attack", false);
     }
 
     update(time, delta) {
-        // No animation currently playing; queue idle
-        if (!this.actor.anims.isPlaying) this.actor.play("idle");
-
         // If not on platform; fall
         if (!this.actor.body.onFloor()) this.fsm.change("jump", false);
     }

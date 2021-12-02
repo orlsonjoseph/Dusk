@@ -13,22 +13,13 @@ class State {
     }
 
     // Execute upon entering state
-    enter() {
-
-        this.name && console.log("enter not defined for", this.name);
-    }
+    enter() {}
 
     // Execute prior to exiting state
-    exit() {
-
-        this.name && console.log("exit not defined for", this.name);
-    }
+    exit() {}
 
     // Handles input for state
-    handle(input) {
-
-        this.name && console.log("handle not defined for", this.name);
-    }
+    handle(input) {}
     
     // Propagates update loop
     update(time, delta) {}

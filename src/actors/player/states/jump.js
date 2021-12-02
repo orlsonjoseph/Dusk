@@ -23,7 +23,7 @@ class JumpState extends State {
             this.actor.setVelocityY(this.jump.height);
     }
 
-    exit() { this.jump.timer = 0; this.actor.stop("fall"); }
+    exit() { this.jump.timer = 0; }
 
     handle(input) {
         this.jump.timer += 1;
@@ -45,25 +45,12 @@ class JumpState extends State {
             MoveState.moveHorizontally(
                 direction, false, this.actor.data.get("speed"), this.actor);
         }
-
-        // Air attack
-        if (input.attack.isDown) this.fsm.change("attack", false);
     }
 
     update(time, delta) {
         if (this.actor.body.onFloor())
             this.fsm.change("previous", true);
-
-        // Update animation depending on player velocity
-        // Jump for negative velocities and Fall otherwise
-        else {
-            let animationKey = 
-                this.actor.body.velocity.y > 0 ? "fall" : "jump",
-                currentAnimation = this.actor.anims.getName();
-
-            if (currentAnimation != animationKey || currentAnimation == NONE)
-                this.actor.play(animationKey);
-        }
+            
     }
 }
 

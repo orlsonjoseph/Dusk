@@ -39,7 +39,8 @@ class Dusk extends Phaser.Game {
             physics: {
                 default: "arcade",
                 arcade: {
-                    debug: true
+                    debug: true,
+                    gravity: 100,
                 }
             },
         });

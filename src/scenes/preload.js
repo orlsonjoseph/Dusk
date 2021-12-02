@@ -1,29 +1,24 @@
 
 class Preload extends Phaser.Scene {
-	constructor() {
+    constructor() {
+
         super({key: "Preload"});
     }
 
-	preload() {
+    preload() {
         this.load.baseURL = "../src/assets/";
 
         // load spritesheets
-        this.load.spritesheet("player", "spritesheets/player.png",
-            {
-                frameWidth: 50, frameHeight: 37
-            });
-            
+        this.load.image("player", "spritesheets/player.png");
+                
         // load tilesets
         this.load.image("tiles", "tilesets/dev-block.png");
 
         // load exported Tiles JSON
         this.load.tilemapTiledJSON("map", "tilemaps/level_test.json");
-	}
+    }
 
-	create() {
-
-		this.scene.start("Game");
-	}
+    create() { this.scene.start("Game") }
 }
 
 export default Preload;

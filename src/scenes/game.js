@@ -10,7 +10,7 @@ class Game extends Phaser.Scene {
 
 		this.settings = {
 			tileset: {
-				name: "dev-tileset", asset: "tiles" },
+				name: "dev-block", asset: "tiles" },
 		}
 
 		// for debugging purposes, clear localStorage
@@ -34,10 +34,6 @@ class Game extends Phaser.Scene {
 		[this.physics.world, this.cameras.main].forEach((item, i) => {
 			item.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
 		});
-
-		// TODO fall animation not playing
-		//		layer reading refactoring
-		//		platform fall through
 
 		this.player = new Player(
 			this, this.positions.player.x, this.positions.player.y);
