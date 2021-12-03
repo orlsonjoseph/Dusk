@@ -45,6 +45,9 @@ class Game extends Phaser.Scene {
 
 		// Set camera to follow player
 		this.cameras.main.startFollow(this.player, true, 1, 1, -35, 20);
+
+		// TILE BIAS
+		this.physics.world.TILE_BIAS = 8;
 	}
 }
 

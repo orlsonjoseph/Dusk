@@ -9,6 +9,9 @@ class IdleState extends State {
     handle(input) {
         // Reset velocity on X-axis upon entering
         this.actor.setVelocityX(0);
+        
+        // Dash 
+        if (input.dash.isDown) this.fsm.change("dash", false);
 
         // Change to JumpState if jump is pressed
         if (input.jump.isDown) this.fsm.change("jump", false);

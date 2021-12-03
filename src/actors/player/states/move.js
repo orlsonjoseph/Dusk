@@ -27,13 +27,16 @@ class MoveState extends State {
         // Movement only persists for a frame
         // unless movement keys are held
 
+        // Update direction variable
+        this.direction = input.right.isDown ? true : false;
+
         if (input.left.isUp && input.right.isUp)
             this.fsm.change("previous", true);
 
         if (input.jump.isDown) this.fsm.change("jump", true);
-        
-        // Update direction variable
-        this.direction = input.right.isDown ? true : false;
+
+        // Dash 
+        if (input.dash.isDown) this.fsm.change("dash", true);
     }
 
     update(time, delta) {

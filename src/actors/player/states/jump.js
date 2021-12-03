@@ -7,7 +7,7 @@ class JumpState extends State {
         super(scene, actor);
 
         this.jump = {
-            timer: 0, start: null, upperbound: 18, multiplier: 6.45,
+            timer: 0, start: null, upperbound: 18, multiplier: 6.25,
             height: -1 * this.actor.data.get("vertical")}
     }
 
@@ -40,6 +40,22 @@ class JumpState extends State {
             MoveState.moveHorizontally(
                 direction, false, this.actor.data.get("speed"), this.actor);
         }
+
+        // Reduce horizontal velocity if key not down
+        if (input.left.isUp && input.right.isUp) {
+            let velocity = this.actor.body.velocity.x,
+                isPositive = velocity > 0;
+
+            if (velocity == 0) {} else {
+                let newVelocity = isPositive ? velocity - 1 : velocity + 1;
+
+                this.actor.setVelocityX(newVelocity);
+            }
+        }
+        
+        // Dash 
+        if (input.dash.isDown && this.actor.allowed.dash)
+            this.fsm.change("dash", false);
     }
 
     update(time, delta) {
