@@ -35,17 +35,16 @@ class DashState extends State {
         this.actor.data.set("dash", dashInfos);
     }
 
-    exit() {
-        this.actor.setVelocity(0);
-
-        this.actor.body.setAllowGravity(true);
-        this.actor.allowed.dash = false;
-    }
-
     update(time, delta) {
         if (this.dash.end && time > this.dash.end) {
+            this.actor.setVelocity(0);
 
-            this.fsm.change("previous", true);
+            this.scene.time.delayedCall(120, function() {
+                this.actor.body.setAllowGravity(true);
+                this.actor.allowed.dash = false;
+
+                this.fsm.change("previous", true);
+            }, {}, this);
         }
     }
 }

@@ -14,8 +14,10 @@ class JumpState extends State {
     enter() {
         this.jump.timer = 1;
 
-        if (this.actor.body.onFloor())
+        if (this.actor.body.onFloor() && this.actor.allowed.jump)
             this.actor.setVelocityY(this.jump.height);
+            
+        this.actor.allowed.jump = false;
     }
 
     exit() { this.jump.timer = 0 }
@@ -54,8 +56,11 @@ class JumpState extends State {
         }
         
         // Dash 
-        if (input.dash.isDown && this.actor.allowed.dash)
+        if (input.dash.isDown && this.actor.allowed.dash) {
+            this.jump.timer = this.jump.upperbound;
+
             this.fsm.change("dash", false);
+        }
     }
 
     update(time, delta) {

@@ -39,7 +39,7 @@ class Player extends Actor {
         }
 
         // Flags
-        this.allowed = {dash: true, current: 3};
+        this.allowed = {dash: true, jump: true};
 
         this.manager.initialize();
     }
@@ -48,10 +48,10 @@ class Player extends Actor {
         let grounded = this.body.onFloor();
 
         if (grounded) {
-
+            this.allowed.jump = true;
             this.allowed.dash = true;
         }
-        
+
         this.manager.update(time, delta, this.scene.cursors)
     }
 }
