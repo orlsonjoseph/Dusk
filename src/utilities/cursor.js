@@ -1,13 +1,15 @@
-
 class Cursor {
     constructor(scene) {
         return scene.input.keyboard.addKeys({
-            left    : "left",
-            right   : "right",
+            up: "up",
+            down: "down",
+            left: "left",
+            right: "right",
 
-            jump    : "up",
-            
-            dash    : "space",
+            jump: "Z",
+            attack: "X",
+            dodge: "C",
+
         })
     }
 }

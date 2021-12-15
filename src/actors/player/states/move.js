@@ -4,21 +4,21 @@ class MoveState extends State {
     // Static definition to allow access from other states
     // such as jump
     static moveHorizontally(d, i, s, actor) {
-        actor.setVelocityX((d? 1 : -1) * s);
-    
-        actor.flipX = (i ? d: !d);
+        actor.setVelocityX((d ? 1 : -1) * s);
+
+        actor.flipX = (i ? d : !d);
     }
 
     constructor(scene, actor) {
         super(scene, actor);
 
         this.speed = this.actor.data.get("speed");
-        
+
         this.invert = false;
         this.direction = true;
     }
 
-    exit() { 
+    exit() {
         // Stop horizontal motion
         this.actor.setVelocity(0);
     }
@@ -35,8 +35,12 @@ class MoveState extends State {
 
         if (input.jump.isDown) this.fsm.change("jump", true);
 
-        // Dash 
-        if (input.dash.isDown) this.fsm.change("dash", true);
+        // Change to AttackState if attack pressed
+        if (input.attack.isDown) this.fsm.change("attack", false);
+
+        // Dodge (only exception for complete boolean)
+        if (input.dodge.isDown && this.actor.body.onFloor())
+            this.fsm.change("dodge", false);
     }
 
     update(time, delta) {

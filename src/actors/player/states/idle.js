@@ -5,13 +5,14 @@ class IdleState extends State {
         super(scene, actor);
 
     }
-    
+
     handle(input) {
         // Reset velocity on X-axis upon entering
         this.actor.setVelocityX(0);
-        
-        // Dash 
-        if (input.dash.isDown) this.fsm.change("dash", false);
+
+        // Change to Dodge state if grounded and button pressed
+        if (input.dodge.isDown && this.actor.body.onFloor())
+            this.fsm.change("dodge", false);
 
         // Change to JumpState if jump is pressed
         if (input.jump.isDown) this.fsm.change("jump", false);
@@ -19,13 +20,19 @@ class IdleState extends State {
         // Change to MoveState if arrow keys are pressed
         if (input.left.isDown || input.right.isDown)
             this.fsm.change("move", false);
+
+        // Change to AttackState if attack pressed
+        if (input.attack.isDown) this.fsm.change("attack", false);
     }
 
     update(time, delta) {
         let grounded = this.actor.body.onFloor();
-        
+
         // If not on platform; fall
-        if (!grounded) this.fsm.change("jump", false);
+        if (!grounded) {
+            console.log("not on ground");
+            this.fsm.change("jump", false);
+        }
     }
 }
 

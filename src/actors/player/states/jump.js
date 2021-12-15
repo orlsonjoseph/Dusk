@@ -1,4 +1,3 @@
-import { NONE } from "phaser";
 import State from "../../../utilities/state";
 import MoveState from "./move";
 
@@ -7,8 +6,12 @@ class JumpState extends State {
         super(scene, actor);
 
         this.jump = {
-            timer: 0, start: null, upperbound: 18, multiplier: 6.25,
-            height: -1 * this.actor.data.get("vertical")}
+            timer: 0,
+            start: null,
+            upperbound: 19,
+            multiplier: 5,
+            height: -1 * this.actor.data.get("vertical")
+        }
     }
 
     enter() {
@@ -16,22 +19,26 @@ class JumpState extends State {
 
         if (this.actor.body.onFloor() && this.actor.allowed.jump)
             this.actor.setVelocityY(this.jump.height);
-            
-        this.actor.allowed.jump = false;
     }
 
     exit() { this.jump.timer = 0 }
 
     handle(input) {
-        this.jump.timer += 1;
+        // Allowed to perform jump
+        if (this.actor.allowed.jump == true) {
+            this.jump.timer += 1;
 
-        if (input.jump.isDown && this.jump.timer > 0) {
-            if (this.jump.timer < this.jump.upperbound) {
-                let velocity = this.jump.height - 
-                    (this.jump.timer * this.jump.multiplier);
+            if (input.jump.isDown && this.jump.timer > 0) {
+                if (this.jump.timer < this.jump.upperbound) {
+                    let velocity = this.jump.height -
+                        (this.jump.timer * this.jump.multiplier);
 
-                this.actor.setVelocityY(velocity);
+                    this.actor.setVelocityY(velocity);
+                }
             }
+
+            // If button released, complete jump
+            if (input.jump.isUp) this.jump.timer = this.jump.upperbound;
         }
 
         // In-house horizontal movement
@@ -49,23 +56,20 @@ class JumpState extends State {
                 isPositive = velocity > 0;
 
             if (velocity == 0) {} else {
-                let newVelocity = isPositive ? velocity - 1 : velocity + 1;
+                let newVelocity = isPositive ? velocity - 0.5 : velocity + 0.5;
 
                 this.actor.setVelocityX(newVelocity);
             }
         }
-        
-        // Dash 
-        if (input.dash.isDown && this.actor.allowed.dash) {
-            this.jump.timer = this.jump.upperbound;
 
-            this.fsm.change("dash", false);
-        }
+        // If attack is pressed; execute attack in mid-air
+        // Make use of static function
+        // if (input.attack.isDown) this.fsm.change("attack", false);
     }
 
     update(time, delta) {
         if (this.actor.body.onFloor())
-            this.fsm.change("previous", true);       
+            this.fsm.change("previous", true);
     }
 }
 
