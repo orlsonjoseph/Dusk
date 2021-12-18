@@ -5,7 +5,7 @@ class AttackState extends State {
         super(scene, actor);
 
         this.attack = {
-            duration: 150,
+            duration: 60,
 
             direction: null,
             incomplete: false,
@@ -30,45 +30,50 @@ class AttackState extends State {
     }
 
     handle(input) {
-        // Execute only if not completed
-        if (this.attack.incomplete) {
+        // Relay to static method
+        AttackState.attack(this, input);
+    }
 
+    static attack(state, input) {
+        // Execute only if not completed
+        if (state.attack.incomplete) {
+            console.log("attacking");
             // Default attack direction
-            this.attack.direction = this.actor.flipX ? "left" : "right";
+            state.attack.direction = state.actor.flipX ? "left" : "right";
 
             // Compute alternative attack direction
-            if (input.up.isDown) this.attack.direction = "up";
-            else if (input.down.isDown) this.attack.direction = "down";
+            if (input.up.isDown) state.attack.direction = "up";
+            else if (input.down.isDown) state.attack.direction = "down";
 
             // Compute weapon offsets
             let offsets = null;
 
-            switch (this.attack.direction) {
+            switch (state.attack.direction) {
                 case "up":
-                    offsets = { x: 0, y: -this.attack.offset };
+                    offsets = { x: 0, y: -state.attack.offset };
                     break;
 
                 case "down":
-                    offsets = { x: 0, y: this.attack.offset };
+                    offsets = { x: 0, y: state.attack.offset };
                     break;
 
                 case "left":
-                    offsets = { x: -this.attack.offset, y: 0 };
+                    offsets = { x: -state.attack.offset, y: 0 };
                     break;
 
                 default: // default is right
-                    offsets = { x: this.attack.offset, y: 0 };
+                    offsets = { x: state.attack.offset, y: 0 };
             }
 
             // Position weapon zone
-            let center = this.actor.getCenter(),
+            let center = state.actor.getCenter(),
                 x = center.x + offsets.x,
                 y = center.y + offsets.y;
 
-            this.actor.weapon.enableBody(true, x, y, true, false);
+            state.actor.weapon.enableBody(true, x, y, true, false);
 
             // Completed Attack State (delay for animation)
-            this.attack.incomplete = false;
+            state.attack.incomplete = false;
         }
     }
 }

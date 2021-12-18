@@ -1,4 +1,5 @@
 import State from "../../../utilities/state";
+import AttackState from "./attack";
 import MoveState from "./move";
 
 class JumpState extends State {
@@ -63,8 +64,11 @@ class JumpState extends State {
         }
 
         // If attack is pressed; execute attack in mid-air
-        // Make use of static function
-        // if (input.attack.isDown) this.fsm.change("attack", false);
+        if (input.attack.isDown) {
+            console.log("in jump and attacking");
+            AttackState.attack(
+                this.fsm.get("attack"), input, true);
+        }
     }
 
     update(time, delta) {

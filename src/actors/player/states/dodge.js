@@ -8,7 +8,7 @@ class DodgeState extends State {
             duration: 120,
             end: null,
 
-            velocity: this.actor.data.get("speed") * 3.5
+            velocity: this.actor.data.get("speed") * 3.25
         };
     }
 

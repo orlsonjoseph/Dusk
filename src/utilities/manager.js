@@ -9,14 +9,17 @@ class Manager {
 
         this.current = null;
     }
-    
+
     // Add new state to library
     add(name, state) {
         state.name = name;
 
         this.map[name] = state;
     }
-    
+
+    // Get state instance
+    get(key) { return this.map[key] }
+
     // Initialize Actor with default state
     initialize(initial = "idle") {
         this.stack.enqueue(this.map[initial]);
@@ -32,7 +35,7 @@ class Manager {
 
         // If current state not completed
         // Enqueue next w/ dequeuing
-        
+
         if (completed) {
             this.stack.dequeue();
 
@@ -43,20 +46,20 @@ class Manager {
 
             this.stack.enqueue(this.map[key]);
         }
-        
+
         this.current = this.stack.peek();
         if (key != "previous") this.current.enter(args);
     }
-    
+
     // Propagates update to current state + inputs
     update(time, delta, input) {
         if (this.current == null) this.initialize();
 
-        console.log("Current State: ", this.current.name);
+        // console.log("Current State: ", this.current.name);
         this.current.handle(input);
 
         this.current.update(time, delta);
     }
 }
-  
+
 export default Manager;
