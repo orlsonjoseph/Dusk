@@ -22,17 +22,15 @@ class IdleState extends State {
             this.fsm.change("move", false);
 
         // Change to AttackState if attack pressed
-        if (input.attack.isDown) this.fsm.change("attack", false);
+        if (input.attack.isDown && this.actor.allowed.attack)
+            this.fsm.change("attack", false);
     }
 
     update(time, delta) {
         let grounded = this.actor.body.onFloor();
 
         // If not on platform; fall
-        if (!grounded) {
-            console.log("not on ground");
-            this.fsm.change("jump", false);
-        }
+        if (!grounded) this.fsm.change("jump", false);
     }
 }
 

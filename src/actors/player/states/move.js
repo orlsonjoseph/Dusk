@@ -36,7 +36,8 @@ class MoveState extends State {
         if (input.jump.isDown) this.fsm.change("jump", true);
 
         // Change to AttackState if attack pressed
-        if (input.attack.isDown) this.fsm.change("attack", false);
+        if (input.attack.isDown && this.actor.allowed.attack)
+            this.fsm.change("attack", true);
 
         // Dodge (only exception for complete boolean)
         if (input.dodge.isDown && this.actor.body.onFloor())

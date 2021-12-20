@@ -18,10 +18,16 @@ let STATES = {
 }
 
 let ATTRIBUTES = {
+    gravity: 590,
+
     speed: 65.0,
     vertical: 35,
-    gravity: 590,
+
     dodge: { delay: 540, next: 0 },
+    attack: { delay: 360, next: 0 },
+
+    health: 100,
+    stamina: 100,
 }
 
 class Player extends Actor {
@@ -48,7 +54,7 @@ class Player extends Actor {
         }
 
         // Flags
-        this.allowed = { dodge: true, jump: true };
+        this.allowed = { dodge: true, jump: true, attack: true };
 
         // Weapon
         this.weapon = new Weapon(this.scene, x, y, 16);
@@ -59,7 +65,11 @@ class Player extends Actor {
     update(time, delta) {
         let grounded = this.body.onFloor();
 
-        if (grounded) this.allowed.jump = true;
+        if (grounded) { this.allowed.jump = true; }
+        if (!this.allowed.attack &&
+            time > this.data.get("attack").next) {
+            this.allowed.attack = true;
+        }
 
         this.manager.update(time, delta, this.scene.cursors)
     }

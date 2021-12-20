@@ -33,7 +33,6 @@ class DodgeState extends State {
 
         // Store new information about dodge
         infos.next = now + infos.delay;
-        this.actor.data.set("dodge", infos);
     }
 
     update(time, delta) {

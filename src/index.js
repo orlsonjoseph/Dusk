@@ -2,15 +2,16 @@ import Phaser from 'phaser';
 
 import Preload from "./scenes/preload.js";
 import Game from "./scenes/game.js";
+import Overlay from './scenes/overlay.js';
 
 class Dusk extends Phaser.Game {
-    constructor () {
+    constructor() {
         super({
             renderType: Phaser.CANVAS,
 
             width: 320,
             height: 180,
-            
+
             backgroundColor: 0x69c0fa,
 
             scale: {
@@ -44,11 +45,13 @@ class Dusk extends Phaser.Game {
             },
         });
 
-    this.scene.add("Preload", Preload, false);
-    this.scene.add("Game", Game, false);
+        this.scene.add("Preload", Preload, false);
+        this.scene.add("Game", Game, false);
 
-    this.scene.start("Preload");
+        this.scene.add("Overlay", Overlay, false);
+
+        this.scene.start("Preload");
     }
 }
-      
+
 new Dusk();

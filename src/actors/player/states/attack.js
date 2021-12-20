@@ -18,12 +18,21 @@ class AttackState extends State {
         // Reset velocity on X-axis upon entering
         this.actor.setVelocityX(0);
 
-        // Set completed flag
+        // Set completed && allowed to attack flags
         this.attack.incomplete = true;
+        this.actor.allowed.attack = false;
+
+        // Update next time player allowed to attack
+        let infos = this.actor.data.get("attack");
+        infos.next = this.scene.time.now + infos.delay
+
+        // Slow down fall if mid-air
+        if (!this.actor.body.onFloor()) this.actor.body.setAllowGravity(false);
 
         // Exit after set duration
         this.scene.time.delayedCall(this.attack.duration, function() {
             this.actor.weapon.disableBody(true, false);
+            this.actor.body.setAllowGravity(true);
 
             this.fsm.change("previous", true);
         }, null, this);
@@ -37,13 +46,12 @@ class AttackState extends State {
     static attack(state, input) {
         // Execute only if not completed
         if (state.attack.incomplete) {
-            console.log("attacking");
             // Default attack direction
             state.attack.direction = state.actor.flipX ? "left" : "right";
 
             // Compute alternative attack direction
-            if (input.up.isDown) state.attack.direction = "up";
-            else if (input.down.isDown) state.attack.direction = "down";
+            // if (input.up.isDown) state.attack.direction = "up";
+            // else if (input.down.isDown) state.attack.direction = "down";
 
             // Compute weapon offsets
             let offsets = null;

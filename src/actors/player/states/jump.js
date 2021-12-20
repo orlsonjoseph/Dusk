@@ -1,5 +1,4 @@
 import State from "../../../utilities/state";
-import AttackState from "./attack";
 import MoveState from "./move";
 
 class JumpState extends State {
@@ -64,14 +63,16 @@ class JumpState extends State {
         }
 
         // If attack is pressed; execute attack in mid-air
-        if (input.attack.isDown) {
-            console.log("in jump and attacking");
-            AttackState.attack(
-                this.fsm.get("attack"), input, true);
-        }
+        if (input.attack.isDown && this.actor.allowed.attack)
+            this.fsm.change("attack", false);
     }
 
     update(time, delta) {
+        // 
+        // if (this.scene.cursors.attack._justUp) {
+        //     this.jump.timer = this.jump.upperbound;
+        // }
+
         if (this.actor.body.onFloor())
             this.fsm.change("previous", true);
     }
