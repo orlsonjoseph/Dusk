@@ -1,8 +1,7 @@
-
 class Preload extends Phaser.Scene {
     constructor() {
 
-        super({key: "Preload"});
+        super({ key: "Preload" });
     }
 
     preload() {
@@ -10,7 +9,8 @@ class Preload extends Phaser.Scene {
 
         // load spritesheets
         this.load.image("player", "spritesheets/player.png");
-                
+        this.load.image("anchor", "spritesheets/anchor.png");
+
         // load tilesets
         this.load.image("tiles", "tilesets/dev-block.png");
 

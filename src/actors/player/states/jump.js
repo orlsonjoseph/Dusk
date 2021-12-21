@@ -65,6 +65,10 @@ class JumpState extends State {
         // If attack is pressed; execute attack in mid-air
         if (input.attack.isDown && this.actor.allowed.attack)
             this.fsm.change("attack", false);
+
+        // Change to UnravelSate if button pressed
+        if (input.unravel.isDown && this.actor.allowed.unravel)
+            this.fsm.change("unravel", false);
     }
 
     update(time, delta) {

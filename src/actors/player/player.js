@@ -5,8 +5,10 @@ import JumpState from "./states/jump";
 import MoveState from "./states/move";
 import DodgeState from "./states/dodge";
 import AttackState from "./states/attack";
+import UnravelState from "./states/unravel";
 
-import Weapon from "./weapon";
+import Weapon from "./tools/weapon";
+import Anchor from "./tools/anchor";
 
 let STATES = {
     idle: IdleState,
@@ -15,6 +17,8 @@ let STATES = {
 
     dodge: DodgeState,
     attack: AttackState,
+
+    unravel: UnravelState,
 }
 
 let ATTRIBUTES = {
@@ -24,7 +28,9 @@ let ATTRIBUTES = {
     vertical: 35,
 
     dodge: { delay: 540, next: 0 },
-    attack: { delay: 360, next: 0 },
+    attack: { delay: 240, next: 0 },
+
+    unravel: { delay: 540, cooldown: 4096, expiration: 8192 },
 
     health: 100,
     stamina: 100,
@@ -54,9 +60,22 @@ class Player extends Actor {
         }
 
         // Flags
-        this.allowed = { dodge: true, jump: true, attack: true };
+        this.allowed = {
+            jump: true,
+            dodge: true,
+            attack: true,
+            // Controls whether or not manager executes the state
+            unravel: true,
+        };
 
-        // Weapon
+        // Controls whether setting or getting anchor
+        this.unravel = {
+            state: false,
+
+            anchor: new Anchor(this.scene, x, y)
+        };
+
+        // Actor weapon
         this.weapon = new Weapon(this.scene, x, y, 16);
 
         this.manager.initialize();

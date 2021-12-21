@@ -9,7 +9,7 @@ class Cursor {
             jump: "Z",
             attack: "X",
             dodge: "C",
-
+            unravel: "V",
         })
     }
 }

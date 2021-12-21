@@ -42,6 +42,10 @@ class MoveState extends State {
         // Dodge (only exception for complete boolean)
         if (input.dodge.isDown && this.actor.body.onFloor())
             this.fsm.change("dodge", false);
+
+        // Change to UnravelSate if button pressed
+        if (input.unravel.isDown && this.actor.allowed.unravel)
+            this.fsm.change("unravel", false);
     }
 
     update(time, delta) {
