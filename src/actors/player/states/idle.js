@@ -15,7 +15,8 @@ class IdleState extends State {
             this.fsm.change("dodge", false);
 
         // Change to JumpState if jump is pressed
-        if (input.jump.isDown) this.fsm.change("jump", false);
+        if (input.jump.isDown && this.actor.allowed.jump)
+            this.fsm.change("jump", false);
 
         // Change to MoveState if arrow keys are pressed
         if (input.left.isDown || input.right.isDown)

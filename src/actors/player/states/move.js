@@ -33,7 +33,8 @@ class MoveState extends State {
         if (input.left.isUp && input.right.isUp)
             this.fsm.change("previous", true);
 
-        if (input.jump.isDown) this.fsm.change("jump", true);
+        if (input.jump.isDown && this.actor.allowed.jump)
+            this.fsm.change("jump", true);
 
         // Change to AttackState if attack pressed
         if (input.attack.isDown && this.actor.allowed.attack)

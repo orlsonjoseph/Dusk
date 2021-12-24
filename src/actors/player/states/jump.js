@@ -39,6 +39,10 @@ class JumpState extends State {
 
             // If button released, complete jump
             if (input.jump.isUp) this.jump.timer = this.jump.upperbound;
+
+            // 
+            if (this.jump.timer >= this.jump.upperbound)
+                this.actor.allowed.jump = false;
         }
 
         // In-house horizontal movement
@@ -72,11 +76,6 @@ class JumpState extends State {
     }
 
     update(time, delta) {
-        // 
-        // if (this.scene.cursors.attack._justUp) {
-        //     this.jump.timer = this.jump.upperbound;
-        // }
-
         if (this.actor.body.onFloor())
             this.fsm.change("previous", true);
     }

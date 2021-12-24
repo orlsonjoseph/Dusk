@@ -20,7 +20,7 @@ class DashState extends State {
         this.actor.setVelocityX(this.dash.velocity * direction);
         this.actor.setVelocityY(0);
 
-        // Delay to wait for anchor to move
+        // Delay to exit state + delay to give back control
         this.scene.time.delayedCall(this.dash.duration, function() {
             this.actor.setVelocityX(0);
             this.fsm.change("previous", true);
@@ -31,6 +31,7 @@ class DashState extends State {
             }, null, this);
         }, null, this);
 
+        // Delay to allow dash refill on touching ground
         this.scene.time.delayedCall(this.dash.cooldown, function() {
             this.actor.allowed.refill = true;
         }, null, this);

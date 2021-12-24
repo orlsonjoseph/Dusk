@@ -8,7 +8,6 @@ import AttackState from "./states/attack";
 import DashState from "./states/dash";
 
 import Weapon from "./tools/weapon";
-import Anchor from "./tools/anchor";
 
 let STATES = {
     idle: IdleState,
@@ -61,7 +60,7 @@ class Player extends Actor {
 
         // Flags
         this.allowed = {
-            jump: true,
+            jump: false,
             dodge: true,
             attack: true,
 
@@ -80,7 +79,9 @@ class Player extends Actor {
         let grounded = this.body.onFloor();
 
         if (grounded) {
-            this.allowed.jump = true;
+            if (this.allowed.jump == false && this.scene.cursors.jump.isUp)
+                this.allowed.jump = true;
+
             if (this.allowed.refill) this.allowed.dash = true;
         }
 
