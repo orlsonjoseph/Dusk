@@ -8,8 +8,8 @@ class JumpState extends State {
         this.jump = {
             timer: 0,
             start: null,
-            upperbound: 19,
-            multiplier: 5,
+            upperbound: 18,
+            multiplier: 3.25,
             height: -1 * this.actor.data.get("vertical")
         }
     }
@@ -66,9 +66,9 @@ class JumpState extends State {
         if (input.attack.isDown && this.actor.allowed.attack)
             this.fsm.change("attack", false);
 
-        // Change to UnravelSate if button pressed
-        if (input.unravel.isDown && this.actor.allowed.unravel)
-            this.fsm.change("unravel", false);
+        // Change to DashState if button pressed
+        if (input.dash.isDown && this.actor.allowed.dash)
+            this.fsm.change("dash", false);
     }
 
     update(time, delta) {

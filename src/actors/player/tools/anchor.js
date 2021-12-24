@@ -4,10 +4,13 @@ class Anchor extends Phaser.Physics.Arcade.Sprite {
 
         this.scene = scene;
         this.scene.add.existing(this);
+        this.scene.physics.add.existing(this);
 
         this
             .setName("Anchor")
-            .setVisible(false);
+            .setVisible(true)
+            .setOrigin(0, 1)
+            .body.setAllowGravity(false);
     }
 }
 

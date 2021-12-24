@@ -25,9 +25,9 @@ class IdleState extends State {
         if (input.attack.isDown && this.actor.allowed.attack)
             this.fsm.change("attack", false);
 
-        // Change to UnravelSate if button pressed
-        if (input.unravel.isDown && this.actor.allowed.unravel)
-            this.fsm.change("unravel", false);
+        // Change to DashState if button pressed
+        if (input.dash.isDown && this.actor.allowed.dash)
+            this.fsm.change("dash", false);
     }
 
     update(time, delta) {

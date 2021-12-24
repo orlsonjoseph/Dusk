@@ -40,7 +40,8 @@ class Game extends Phaser.Scene {
         this.player = new Player(
             this, this.positions.player.x, this.positions.player.y);
 
-        this.physics.add.collider(this.player, [this.ground, this.platforms]);
+        this.physics.add.collider(
+            [this.player.anchor, this.player], [this.ground, this.platforms]);
 
         // Define cursors aka game keys
         this.cursors = new Cursor(this);

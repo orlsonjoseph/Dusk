@@ -5,7 +5,7 @@ import JumpState from "./states/jump";
 import MoveState from "./states/move";
 import DodgeState from "./states/dodge";
 import AttackState from "./states/attack";
-import UnravelState from "./states/unravel";
+import DashState from "./states/dash";
 
 import Weapon from "./tools/weapon";
 import Anchor from "./tools/anchor";
@@ -18,22 +18,22 @@ let STATES = {
     dodge: DodgeState,
     attack: AttackState,
 
-    unravel: UnravelState,
+    dash: DashState,
 }
 
 let ATTRIBUTES = {
-    gravity: 590,
+    gravity: 900,
 
-    speed: 65.0,
-    vertical: 35,
+    speed: 90,
+    vertical: 77.5,
 
     dodge: { delay: 540, next: 0 },
     attack: { delay: 240, next: 0 },
 
-    unravel: { delay: 540, cooldown: 4096, expiration: 8192 },
+    dash: { duration: 150, velocity: 280, coyote: 30, cooldown: 200 },
 
-    health: 100,
-    stamina: 100,
+    life: 5,
+    gloom: 17,
 }
 
 class Player extends Actor {
@@ -64,16 +64,11 @@ class Player extends Actor {
             jump: true,
             dodge: true,
             attack: true,
-            // Controls whether or not manager executes the state
-            unravel: true,
+
+            dash: true,
         };
 
-        // Controls whether setting or getting anchor
-        this.unravel = {
-            state: false,
-
-            anchor: new Anchor(this.scene, x, y)
-        };
+        this.vulnerable = true;
 
         // Actor weapon
         this.weapon = new Weapon(this.scene, x, y, 16);
@@ -84,7 +79,11 @@ class Player extends Actor {
     update(time, delta) {
         let grounded = this.body.onFloor();
 
-        if (grounded) { this.allowed.jump = true; }
+        if (grounded) {
+            this.allowed.jump = true;
+            if (this.allowed.refill) this.allowed.dash = true;
+        }
+
         if (!this.allowed.attack &&
             time > this.data.get("attack").next) {
             this.allowed.attack = true;

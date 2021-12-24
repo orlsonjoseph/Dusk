@@ -12,7 +12,7 @@ class Overlay extends Phaser.Scene {
         this.input.keyboard.enabled = false;
 
         // Define text-based resources
-        ["health", "stamina"].forEach((item, i) => {
+        ["life", "gloom"].forEach((item, i) => {
             let text = [item, this.parent.player.data.get(item)].join(": ");
 
             this[item] = this.add.text(8, 8 * i, text, { fontSize: "8px" });
