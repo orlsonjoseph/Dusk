@@ -1,17 +1,20 @@
 import Actor from "../actor";
+import PatrolState from "./states/patrol";
 
 
 let STATES = {
-
+    "patrol": PatrolState,
 }
 
 let ATTRIBUTES = {
+    gravity: 100,
 
+    velocity: { x: 20, y: 0 },
 }
 
 class Enemy extends Actor {
-    constructor(scene, x, y, sprite) {
-        super(scene, x, y, sprite);
+    constructor(scene, item, sprite) {
+        super(scene, item.x, item.y, sprite ? sprite : "enemy");
 
         // Define character attributes
         for (var attribute in ATTRIBUTES) {
@@ -19,25 +22,20 @@ class Enemy extends Actor {
             this.data.set(attribute, ATTRIBUTES[attribute])
         }
 
-        // Actor object specifications
-        this
-            .setScale(1)
-            .setBodySize(8, 16)
-            .setImmovable(true)
-            .setGravityY(this.data.get("gravity"));
-
         // Initialize player states
         for (var state in STATES) {
             this.manager &&
                 this.manager.add(state, new(STATES[state])(scene, this))
         }
 
-        this.manager.initialize();
+        this.setName("Enemy");
+        this.manager.initialize("patrol");
     }
 
     update(time, delta) {
+        // console.log(this.body.gravity);
 
-        this.manager.update(time, delta, this.scene.cursors)
+        this.manager.update(time, delta)
     }
 }
 

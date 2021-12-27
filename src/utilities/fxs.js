@@ -44,6 +44,38 @@ export var Dusk = {
         return lib;
     },
 
+    createEnemies: function(scene, map, listOfEnemies) {
+        let layer = map.getObjectLayer("Enemies"),
+            group = scene.physics.add.group({
+                bounceX: 1,
+                allowGravity: true,
+                collideWorldBounds: true
+            });
+
+        // Create object Enemy & add to group
+        layer.objects.forEach((item, i) => {
+            let type = item.type;
+
+            if (listOfEnemies.hasOwnProperty(type)) {
+                var enemy = new(listOfEnemies[type])(group.scene, item);
+
+                group.add(enemy, false);
+            }
+        })
+
+        // Activate object attributes
+        group.getChildren().forEach(function(enemy) {
+            let data = enemy.data.getAll();
+
+            enemy
+                .setGravityY(data.gravity)
+                .setVelocityX(data.velocity.x)
+                .setVelocityY(data.velocity.y);
+        }, this);
+
+        return group;
+    },
+
     // Create animation
     createAnimationFromJSON: function(scene, actor, key, options) {
         let game = scene.game;

@@ -23,7 +23,7 @@ let STATES = {
 let ATTRIBUTES = {
     gravity: 900,
 
-    speed: 90,
+    speed: 80,
     vertical: 77.5,
 
     dodge: { delay: 540, next: 0 },

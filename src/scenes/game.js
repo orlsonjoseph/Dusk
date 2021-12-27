@@ -1,5 +1,6 @@
 import Player from "../actors/player/player";
 import Cursor from "../utilities/cursor";
+import { Catalog } from "../actors/catalog";
 
 // Customized functions
 import { Dusk } from "../utilities/fxs";
@@ -15,13 +16,14 @@ class Game extends Phaser.Scene {
             },
         }
 
+        this.listOfEnemies = Catalog.enemies;
+
         // for debugging purposes, clear localStorage
         localStorage.clear();
     }
 
     create() {
-        [this.map, this.tiles] =
-        Dusk.loadTilemap(this, "map", {
+        [this.map, this.tiles] = Dusk.loadTilemap(this, "map", {
             name: this.settings.tileset.name,
             image: this.settings.tileset.asset
         });
@@ -40,8 +42,10 @@ class Game extends Phaser.Scene {
         this.player = new Player(
             this, this.positions.player.x, this.positions.player.y);
 
+        this.enemies = Dusk.createEnemies(this, this.map, this.listOfEnemies);
+
         this.physics.add.collider(
-            [this.player.anchor, this.player], [this.ground, this.platforms]);
+            [this.player.anchor, this.player, this.enemies], [this.ground, this.platforms]);
 
         // Define cursors aka game keys
         this.cursors = new Cursor(this);

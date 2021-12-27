@@ -9,7 +9,7 @@ class Preload extends Phaser.Scene {
 
         // load spritesheets
         this.load.image("player", "spritesheets/player.png");
-        this.load.image("anchor", "spritesheets/anchor.png");
+        this.load.image("enemy", "spritesheets/enemy.png");
 
         // load tilesets
         this.load.image("tiles", "tilesets/dev-block.png");
