@@ -10,12 +10,12 @@ class PatrolState extends State {
     }
 
     update(time, delta) {
-        // console.log(PatrolState.checkFloorContinuation(this.actor, this.scene));
         let flag = !PatrolState.checkFloorContinuation(this.actor, this.scene, "Platforms") &&
             !PatrolState.checkFloorContinuation(this.actor, this.scene, "Ground");
 
         if (flag) this.actor.toggleFlipX().setVelocityX(
             (this.actor.flipX ? -1 : 1) * this.velocity.x);
+
     }
 
     // Static functions

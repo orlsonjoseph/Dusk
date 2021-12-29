@@ -1,5 +1,5 @@
 class Weapon extends Phaser.Physics.Arcade.Sprite {
-    constructor(scene, x, y, radius) {
+    constructor(scene, x, y, radius, power) {
         super(scene, x, y, null);
 
         this.scene = scene;
@@ -12,7 +12,15 @@ class Weapon extends Phaser.Physics.Arcade.Sprite {
             .setCollideWorldBounds(false)
             .disableBody(true, false);
 
-        // Origin is center
+        // Damage dealt by weapon
+        this.power = power ? power : 1;
+    }
+
+    damage(actor, enemy) {
+        // Reduce HP
+        enemy.damage(actor.data.get("power"));
+
+        enemy.manager.change("stagger", false);
     }
 }
 

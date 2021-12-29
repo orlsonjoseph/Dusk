@@ -39,13 +39,18 @@ class Game extends Phaser.Scene {
             item.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
         });
 
+        // Defining actors & entities
         this.player = new Player(
             this, this.positions.player.x, this.positions.player.y);
 
         this.enemies = Dusk.createEnemies(this, this.map, this.listOfEnemies);
 
+        // Definition of colliders
         this.physics.add.collider(
-            [this.player.anchor, this.player, this.enemies], [this.ground, this.platforms]);
+            [this.player, this.enemies], [this.ground, this.platforms]);
+
+        this.physics.add.overlap(
+            this.player.weapon, this.enemies, this.player.weapon.damage, null, this);
 
         // Define cursors aka game keys
         this.cursors = new Cursor(this);

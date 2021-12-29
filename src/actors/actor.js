@@ -19,6 +19,19 @@ class Actor extends Phaser.Physics.Arcade.Sprite {
         // Define state manager for Actor
         this.manager = new Manager(scene);
     }
+
+    damage(power) {
+        let health = this.data.get("health");
+        console.log(Math.min(0, health - power));
+        if (health) {
+            // Reduce actor health
+            this.data.set("health", Math.min(0, health - power));
+
+            // Change to DeathState if 0
+            if (this.data.get("health") <= 0) this.manager.change("die", true);
+            console.log("health", this.data.getAll());
+        }
+    }
 }
 
 export default Actor;

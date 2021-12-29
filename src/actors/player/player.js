@@ -33,6 +33,7 @@ let ATTRIBUTES = {
 
     life: 5,
     gloom: 17,
+    power: 5,
 }
 
 class Player extends Actor {
@@ -70,7 +71,7 @@ class Player extends Actor {
         this.vulnerable = true;
 
         // Actor weapon
-        this.weapon = new Weapon(this.scene, x, y, 16);
+        this.weapon = new Weapon(this.scene, x, y, 16, 5);
 
         this.manager.initialize();
     }
