@@ -1,3 +1,5 @@
+import Door from "../actors/entity/door";
+
 export var Dusk = {
 
     // Load tilemap with given key and tileset options
@@ -33,12 +35,23 @@ export var Dusk = {
     },
 
     // TODO
-    readPositions: function(map, key) {
+    readPositions: function(scene, map, key) {
         let layer = map.getObjectLayer(key),
             lib = {};
 
+        // Create door group
+        lib.doors = scene.physics.add.group();
+
         layer.objects.forEach((item, i) => {
-            lib[item.name] = item;
+            switch (item.type) {
+                case "door": // Exit doors
+                    lib.doors.add(new Door(scene, item));
+                    break;
+
+                case "spawn": // Player spawn
+                    lib[item.type] = item;
+                    break;
+            }
         });
 
         return lib;
@@ -74,6 +87,23 @@ export var Dusk = {
         }, this);
 
         return group;
+    },
+
+    // Compute where player should be spawned
+    computeSpawnPoint: function(data, positions) {
+        // Rules
+        // Spawn point if from = null
+        // If initial = false & bench defined => bench
+        // If initial = false & bench undefined (spikes death) => spawn
+        // Otherwise => door
+
+        if (data.from === null) return positions.spawn;
+
+        // Otherwise, door
+        for (const door of positions.doors.getChildren()) {
+
+            if (door.destination == data.from) return door.spawn();
+        };
     },
 
     // Create animation

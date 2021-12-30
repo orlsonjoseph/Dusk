@@ -15,10 +15,15 @@ class Preload extends Phaser.Scene {
         this.load.image("tiles", "tilesets/dev-block.png");
 
         // load exported Tiles JSON
-        this.load.tilemapTiledJSON("map", "tilemaps/level_test.json");
+        this.load.tilemapTiledJSON("0", "tilemaps/level_test.json");
+        this.load.tilemapTiledJSON("1", "tilemaps/level.json");
     }
 
-    create() { this.scene.start("Game") }
+    // Todo (level selection)
+    create() {
+
+        this.scene.start("Game", { key: 0, from: null, initial: true })
+    }
 }
 
 export default Preload;

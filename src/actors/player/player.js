@@ -78,6 +78,9 @@ class Player extends Actor {
     }
 
     update(time, delta) {
+        // Circumstancial bug prevention
+        if (!this.body) return;
+
         let grounded = this.body.onFloor();
 
         if (grounded) {
