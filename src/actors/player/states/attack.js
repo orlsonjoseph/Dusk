@@ -31,7 +31,7 @@ class AttackState extends State {
 
         // Exit after set duration
         this.scene.time.delayedCall(this.attack.duration, function() {
-            this.actor.weapon.disableBody(true, false);
+            this.actor.weapon.disableBody(true, false).clear();
             this.actor.body.setAllowGravity(true);
 
             this.fsm.change("previous", true);

@@ -21,15 +21,16 @@ class Actor extends Phaser.Physics.Arcade.Sprite {
     }
 
     damage(power) {
-        let health = this.data.get("health");
-        console.log(Math.min(0, health - power));
-        if (health) {
-            // Reduce actor health
-            this.data.set("health", Math.min(0, health - power));
+        let originalHealth = this.data.get("health");
 
+        if (originalHealth) {
+            let newHealth = Math.max(0, originalHealth - power);
+
+            // Reduce actor health
+            this.data.set("health", newHealth);
+            console.log("new", newHealth);
             // Change to DeathState if 0
-            if (this.data.get("health") <= 0) this.manager.change("die", true);
-            console.log("health", this.data.getAll());
+            if (newHealth <= 0) this.manager.change("die", true);
         }
     }
 }

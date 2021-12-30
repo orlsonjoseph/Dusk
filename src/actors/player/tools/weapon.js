@@ -14,13 +14,27 @@ class Weapon extends Phaser.Physics.Arcade.Sprite {
 
         // Damage dealt by weapon
         this.power = power ? power : 1;
+
+        // Current step collisions
+        this.stepHit = [];
     }
 
     damage(actor, enemy) {
-        // Reduce HP
-        enemy.damage(actor.data.get("power"));
+        // Current step collisions to prevent continuous hits
+        if (this.stepHit.includes(enemy)) return;
 
+        // Reduce HP
+        enemy.damage(this.power);
         enemy.manager.change("stagger", false);
+
+        // Add current enemy to current step collision
+        this.stepHit.push(enemy);
+    }
+
+    clear() {
+
+        // Clear current step collisions after attack completion
+        this.stepHit.length = 0;
     }
 }
 

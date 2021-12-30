@@ -31,7 +31,7 @@ let ATTRIBUTES = {
 
     dash: { duration: 150, velocity: 280, coyote: 30, cooldown: 200 },
 
-    life: 5,
+    health: 5,
     gloom: 17,
     power: 5,
 }
@@ -71,7 +71,8 @@ class Player extends Actor {
         this.vulnerable = true;
 
         // Actor weapon
-        this.weapon = new Weapon(this.scene, x, y, 16, 5);
+        this.weapon = new Weapon(this.scene, x, y, 16,
+            this.data.get("power"));
 
         this.manager.initialize();
     }

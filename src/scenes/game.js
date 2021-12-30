@@ -50,7 +50,7 @@ class Game extends Phaser.Scene {
             [this.player, this.enemies], [this.ground, this.platforms]);
 
         this.physics.add.overlap(
-            this.player.weapon, this.enemies, this.player.weapon.damage, null, this);
+            this.player.weapon, this.enemies, this.player.weapon.damage, null, this.player.weapon);
 
         // Define cursors aka game keys
         this.cursors = new Cursor(this);

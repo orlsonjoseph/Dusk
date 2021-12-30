@@ -8,6 +8,7 @@ class DieState extends State {
 
     enter() {
 
+        // Disable physics body and hide sprite
         this.actor.disableBody(true, true);
     }
 }
